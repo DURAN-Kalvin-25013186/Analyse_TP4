@@ -1,3 +1,5 @@
+Ex 1
+
 1. Arborescence de fichier, organisation d'une entreprise, arbre de composants d'un logiciel,
  structure d'un site web, classificaion biologique, arbre généalogique.
  
@@ -5,3 +7,7 @@
  Sur un arbre n-aire, le parcours infixe n'est pas applicable.
  
  4. C'est le parcours préfixe.
+ 
+ Ex 2
+ 
+ 1. L'arbre est réutilisable, il est générique. Il peut contenir des integer, des strings, etc.
