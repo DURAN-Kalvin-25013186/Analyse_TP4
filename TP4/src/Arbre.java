@@ -1,6 +1,6 @@
 public class Arbre<T> {
 
-	private static class Node<T> {
+    protected static class Node<T> {
 
         T element;
         Node<T> left;
@@ -11,82 +11,71 @@ public class Arbre<T> {
             this.left = null;
             this.right = null;
         }
-
-        Node(T element, Node<T> left, Node<T> right) {
-            this.element = element;
-            this.left = left;
-            this.right = right;
-        }
     }
 
     private Node<T> root;
 
-    private int size;
-
-
     public Arbre() {
         root = null;
-        size = 0;
     }
 
+    public Position<T> addRoot(T element) {
 
-    public boolean isEmpty() {
-        return root == null;
+        if (root != null) {
+            return null;
+        }
+
+        root = new Node<>(element);
+
+        return new Position<>(root);
     }
 
+    public Position<T> root() {
 
-    public int size() {
-        return size;
-    }
-
-
-    public T root() {
         if (root == null) {
             return null;
         }
 
-        return root.element;
+        return new Position<>(root);
     }
 
+    public Position<T> addLeft(
+            Position<T> parent,
+            T element) {
 
-    public void setRoot(T element) {
-        if (root == null) {
-            root = new Node<>(element);
-            size++;
-        } else {
-            root.element = element;
-        }
-    }
-
-
-    public void addLeft(Node<T> parent, T element) {
         if (parent == null) {
-            return;
+            return null;
         }
 
-        if (parent.left == null) {
-            parent.left = new Node<>(element);
-            size++;
+        if (parent.node.left != null) {
+            return null;
         }
+
+        parent.node.left = new Node<>(element);
+
+        return new Position<>(parent.node.left);
     }
 
+    public Position<T> addRight(
+            Position<T> parent,
+            T element) {
 
-    public void addRight(Node<T> parent, T element) {
         if (parent == null) {
-            return;
+            return null;
         }
 
-        if (parent.right == null) {
-            parent.right = new Node<>(element);
-            size++;
+        if (parent.node.right != null) {
+            return null;
         }
+
+        parent.node.right = new Node<>(element);
+
+        return new Position<>(parent.node.right);
     }
-
 
     public void preorder() {
         preorder(root);
     }
-
 
     private void preorder(Node<T> node) {
 
@@ -97,10 +86,41 @@ public class Arbre<T> {
         System.out.print(node.element + " ");
 
         preorder(node.left);
-
         preorder(node.right);
     }
 
+    public void inorder() {
+        inorder(root);
+    }
+
+    private void inorder(Node<T> node) {
+
+        if (node == null) {
+            return;
+        }
+
+        inorder(node.left);
+
+        System.out.print(node.element + " ");
+
+        inorder(node.right);
+    }
+
+    public void postorder() {
+        postorder(root);
+    }
+
+    private void postorder(Node<T> node) {
+
+        if (node == null) {
+            return;
+        }
+
+        postorder(node.left);
+        postorder(node.right);
+
+        System.out.print(node.element + " ");
+    }
 
     @Override
     public String toString() {
@@ -111,7 +131,6 @@ public class Arbre<T> {
 
         return result.toString().trim();
     }
-
 
     private void preorderToString(
             Node<T> node,
